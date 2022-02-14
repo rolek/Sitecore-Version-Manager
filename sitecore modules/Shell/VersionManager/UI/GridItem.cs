@@ -4,132 +4,118 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
+#region Usings
+
+using Sitecore.Data;
+using Sitecore.Data.Items;
+using Sitecore.Diagnostics;
+
+#endregion
+
 namespace Sitecore.VersionManager
 {
-    using Sitecore.Data;
-    using Sitecore.Data.Items;
-    using Sitecore.Diagnostics;
-    
     /// <summary>
-    /// the source class for a grid
+    ///     the source class for a grid
     /// </summary>
     public class GridItem
     {
         #region Fields
 
         /// <summary>
-        /// consist of item id and item language, separated by '^'
+        ///     consist of item id and item language, separated by '^'
         /// </summary>
-        private string itemLang;
+        private readonly string itemLang;
 
         /// <summary>
-        /// stores item name
+        ///     stores item name
         /// </summary>
-        private string name;
+        private readonly string name;
 
         /// <summary>
-        /// stores item language
+        ///     stores item language
         /// </summary>
-        private string language;
+        private readonly string language;
 
         /// <summary>
-        /// stores nubmer of versions in one item language
+        ///     stores nubmer of versions in one item language
         /// </summary>
-        private int versionCount;
+        private readonly int versionCount;
 
         /// <summary>
-        /// stores item path
+        ///     stores item path
         /// </summary>
-        private string itemPath;
+        private readonly string itemPath;
 
         /// <summary>
-        /// stores item id
+        ///     stores item id
         /// </summary>
-        private ID id;
+        private readonly ID id;
 
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the GridItem class
+        ///     Initializes a new instance of the GridItem class
         /// </summary>
         /// <param name="item">source item for initialization</param>
         public GridItem(Item item)
         {
             Assert.ArgumentNotNull(item, "item");
-            this.itemLang = item.ID + "^" + item.Language;
-            this.name = item.Name;
-            this.language = item.Language.ToString();
-            this.versionCount = item.Versions.Count;
-            this.itemPath = item.Paths.FullPath;
-            this.id = item.ID;
+            itemLang = item.ID + "^" + item.Language;
+            name = item.Name;
+            language = item.Language.ToString();
+            versionCount = item.Versions.Count;
+            itemPath = item.Paths.FullPath;
+            id = item.ID;
         }
 
         #region Properties
 
         /// <summary>
-        /// Gets itemLang value
+        ///     Gets itemLang value
         /// </summary>
         public string ItemLang
         {
-            get
-            {
-                return this.itemLang;
-            }
+            get { return itemLang; }
         }
 
         /// <summary>
-        /// Gets itemPath value
+        ///     Gets itemPath value
         /// </summary>
         public string ItemPath
         {
-            get
-            {
-                return this.itemPath;
-            }
+            get { return itemPath; }
         }
-        
+
         /// <summary>
-        /// Gets versionCount value
+        ///     Gets versionCount value
         /// </summary>
         public int VersionCount
         {
-            get
-            {
-                return this.versionCount;
-            }
+            get { return versionCount; }
         }
 
         /// <summary>
-        /// Gets name value
+        ///     Gets name value
         /// </summary>
         public string Name
         {
-            get
-            {
-                return this.name;
-            }
+            get { return name; }
         }
 
         /// <summary>
-        /// Gets language value
+        ///     Gets language value
         /// </summary>
         public string Language
         {
-            get
-            {
-                return this.language;
-            }
+            get { return language; }
         }
 
         /// <summary>
-        /// Gets id value
+        ///     Gets id value
         /// </summary>
         public ID ID
         {
-            get
-            {
-                return this.id;
-            }
+            get { return id; }
         }
 
         #endregion

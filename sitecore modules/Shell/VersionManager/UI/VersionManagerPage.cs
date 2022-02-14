@@ -4,42 +4,44 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
+#region Usings
+
+using System;
+using System.Collections.Generic;
+using System.Web.UI;
+using ComponentArt.Web.UI;
+using Sitecore.Data.Items;
+using Sitecore.Diagnostics;
+using Sitecore.Shell.Framework.Commands;
+using Sitecore.Web.UI.Grids;
+using Sitecore.Web.UI.XamlSharp.Xaml;
+
+#endregion
+
 namespace Sitecore.VersionManager
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Web.UI;
-    using ComponentArt.Web.UI;
-    using Sitecore;
-    using Sitecore.Data.Items;
-    using Sitecore.Diagnostics;
-    using Sitecore.Shell.Framework.Commands;
-    using Sitecore.Web.UI.Grids;
-    using Sitecore.Web.UI.XamlSharp.Xaml;
-    using Sitecore.Web.UI.Sheer;
-
     /// <summary>
-    /// Class that inits and fills the Version Manager UI
+    ///     Class that inits and fills the Version Manager UI
     /// </summary>
     public class VersionManagerPage : Page, IHasCommandContext
     {
         /// <summary>
-        /// Defines UI grid
+        ///     Defines UI grid
         /// </summary>
         protected Grid itemsGrid;
 
         /// <summary>
-        /// Defines control with the caption "Version Manager is disabled"
+        ///     Defines control with the caption "Version Manager is disabled"
         /// </summary>
         protected Control Disabled;
 
         /// <summary>
-        /// Defines GridContainer control in the xaml page.
+        ///     Defines GridContainer control in the xaml page.
         /// </summary>
         protected Control GridContainer;
-        
+
         /// <summary>
-        /// Gets a CommandContext
+        ///     Gets a CommandContext
         /// </summary>
         /// <returns>a CommandContext</returns>
         CommandContext IHasCommandContext.GetCommandContext()
@@ -58,20 +60,20 @@ namespace Sitecore.VersionManager
             Assert.ArgumentNotNull(e, "e");
             base.OnLoad(e);
             if (!VersionManager.IsDisabled)
-            {                
-                this.GridContainer.Visible = true;
-                this.Disabled.Visible = false;
-                Sitecore.Context.ClientPage.Controls.Remove(this.Disabled);
+            {
+                GridContainer.Visible = true;
+                Disabled.Visible = false;
+                Sitecore.Context.ClientPage.Controls.Remove(Disabled);
                 Assert.CanRunApplication("Versions/Version Manager");
                 List<GridItem> itemEntry = new List<GridItem>();
                 itemEntry = VersionManager.GetGridItem();
                 Assert.IsNotNull(itemEntry, "itemEntry");
-                ComponentArtGridHandler<GridItem>.Manage(this.itemsGrid, new GridSource<GridItem>(itemEntry), !XamlControl.AjaxScriptManager.IsEvent);
+                ComponentArtGridHandler<GridItem>.Manage(itemsGrid, new GridSource<GridItem>(itemEntry), !XamlControl.AjaxScriptManager.IsEvent);
             }
             else
             {
-                this.GridContainer.Visible = false;
-                this.Disabled.Visible = true;                
+                GridContainer.Visible = false;
+                Disabled.Visible = true;
             }
         }
 
